@@ -3,13 +3,17 @@ def translate(string)
 		string << "ay"
 	else
 		string2 = string.split('')
-		string2.each_with_index do |letter, index|
-			if !letter.start_with?('a','e','i','o','u') && !string2[index - 1].start_with?('a','e','i','o','u')
-				string2.delete(letter)
-				string2.push(letter)
+		consonants = "bcdfghjklmnpqrstvwxyz"
+		vowels = "aAeiou"
+		foundVowels = false
+		string2.each_with_index { |i, index|
+			if vowels.include?(i)
+				foundVowels = true
+			elsif consonants.include?(i) && !foundVowels
+				string.delete! i
+				string << i
 			end
-			string2 << "ay"
-			string2.join('')
-		end
+		}
+		string << "ay"
 	end
 end
