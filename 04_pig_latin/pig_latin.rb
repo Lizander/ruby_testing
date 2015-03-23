@@ -1,18 +1,25 @@
 def translate(string)
-	if string.start_with?('a','e','i','o','u')
-		string << "ay"
+	if (string.split(' ').length > 1)
+		string3 = ""
+		string2 = string.split(' ')
+		string2.each_with_index { |i, index|
+			string3 += translate(i) + " "
+		}
+		string3.rstrip
 	else
 		string2 = string.split('')
 		consonants = "bcdfghjklmnpqrstvwxyz"
 		vowels = "aAeiou"
 		foundVowels = false
+		previousLetter = ""
 		string2.each_with_index { |i, index|
-			if vowels.include?(i)
+			if vowels.include?(i) && previousLetter != "q"
 				foundVowels = true
-			elsif consonants.include?(i) && !foundVowels
+			elsif !foundVowels
 				string.delete! i
 				string << i
 			end
+			previousLetter = i
 		}
 		string << "ay"
 	end
