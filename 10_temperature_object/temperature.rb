@@ -1,30 +1,34 @@
 class Temperature
 
+	attr_accessor :fahrenheit, :celsius
+
 	def initialize(opts = {})
 		@options = opts
-	end
-
-	def f
-		return @options[:f] if @options.has_key?(:f)
-	end
-
-	def c
-		return @options[:c] if @options.has_key?(:c)
+		@fahrenheit = @options[:f]
+		@celsius = @options[:c]
 	end
 
 	def in_fahrenheit
-		if c == nil
-			return f
+		if @celsius == nil
+			return @fahrenheit
 		else
-			return c * (9.0/5.0) + 32
+			return @celsius * (9.0/5.0) + 32
 		end
 	end
 
 	def in_celsius
-		if f == nil
-			return c
+		if @fahrenheit == nil || @fahrenheit == 0
+			return @celsius
 		else
-			return (f - 32) * (5.0/9.0)
+			return (@fahrenheit - 32) * (5.0/9.0)
 		end
+	end
+
+	def self.from_celsius(celsius)
+		self.new(:c => celsius)
+	end
+
+	def self.from_fahrenheit(fahrenheit)
+		self.new(:f => fahrenheit)
 	end
 end
